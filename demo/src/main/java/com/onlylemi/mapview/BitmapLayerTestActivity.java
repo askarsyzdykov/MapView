@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.onlylemi.mapview.library.MapView;
 import com.onlylemi.mapview.library.MapViewListener;
-import com.onlylemi.mapview.library.layer.BitmapLayer;
+import com.onlylemi.mapview.library.layers.BitmapLayer;
 
 import java.io.IOException;
 import java.util.Random;

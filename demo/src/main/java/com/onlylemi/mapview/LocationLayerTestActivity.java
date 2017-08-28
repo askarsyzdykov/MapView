@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.onlylemi.mapview.library.MapView;
 import com.onlylemi.mapview.library.MapViewListener;
-import com.onlylemi.mapview.library.layer.LocationLayer;
+import com.onlylemi.mapview.library.layers.LocationLayer;
 
 import java.io.IOException;
 

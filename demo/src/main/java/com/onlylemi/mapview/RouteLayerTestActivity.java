@@ -10,8 +10,8 @@ import android.view.MenuItem;
 
 import com.onlylemi.mapview.library.MapView;
 import com.onlylemi.mapview.library.MapViewListener;
-import com.onlylemi.mapview.library.layer.MarkLayer;
-import com.onlylemi.mapview.library.layer.RouteLayer;
+import com.onlylemi.mapview.library.layers.MarkerLayer;
+import com.onlylemi.mapview.library.layers.RouteLayer;
 import com.onlylemi.mapview.library.utils.MapUtils;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class RouteLayerTestActivity extends AppCompatActivity {
 
     private MapView mapView;
 
-    private MarkLayer markLayer;
+    private MarkerLayer markLayer;
     private RouteLayer routeLayer;
 
     private List<PointF> nodes;
@@ -56,9 +56,9 @@ public class RouteLayerTestActivity extends AppCompatActivity {
                 routeLayer = new RouteLayer(mapView);
                 mapView.addLayer(routeLayer);
 
-                markLayer = new MarkLayer(mapView, marks, marksName);
+                /*markLayer = new MarkerLayer(mapView, marks);
                 mapView.addLayer(markLayer);
-                markLayer.setMarkIsClickListener(new MarkLayer.MarkIsClickListener() {
+                markLayer.setOnMarkerClickListener(new MarkerLayer.MarkIsClickListener() {
                     @Override
                     public void markIsClick(int num) {
                         PointF target = new PointF(marks.get(num).x, marks.get(num).y);
@@ -68,7 +68,7 @@ public class RouteLayerTestActivity extends AppCompatActivity {
                         routeLayer.setRouteList(routeList);
                         mapView.refresh();
                     }
-                });
+                });*/
                 mapView.refresh();
             }
 

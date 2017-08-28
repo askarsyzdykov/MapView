@@ -6,15 +6,13 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
-import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.onlylemi.mapview.library.layer.MapBaseLayer;
-import com.onlylemi.mapview.library.layer.MapLayer;
+import com.onlylemi.mapview.library.layers.MapBaseLayer;
+import com.onlylemi.mapview.library.layers.MapLayer;
 import com.onlylemi.mapview.library.utils.MapMath;
 import com.onlylemi.mapview.library.utils.MapUtils;
 

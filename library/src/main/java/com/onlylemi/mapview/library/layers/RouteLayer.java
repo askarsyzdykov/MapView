@@ -1,4 +1,4 @@
-package com.onlylemi.mapview.library.layer;
+package com.onlylemi.mapview.library.layers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

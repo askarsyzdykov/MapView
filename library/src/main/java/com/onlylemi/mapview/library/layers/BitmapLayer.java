@@ -1,7 +1,6 @@
-package com.onlylemi.mapview.library.layer;
+package com.onlylemi.mapview.library.layers;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -10,8 +9,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.onlylemi.mapview.library.MapView;
-
-import java.util.Arrays;
 
 /**
  * BitmapLayer

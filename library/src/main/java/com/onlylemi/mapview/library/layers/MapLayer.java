@@ -1,4 +1,4 @@
-package com.onlylemi.mapview.library.layer;
+package com.onlylemi.mapview.library.layers;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;

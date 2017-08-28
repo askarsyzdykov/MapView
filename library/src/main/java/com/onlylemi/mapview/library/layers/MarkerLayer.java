@@ -1,4 +1,4 @@
-package com.onlylemi.mapview.library.layer;
+package com.onlylemi.mapview.library.layers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.onlylemi.mapview.library.MapView;
+import com.onlylemi.mapview.library.models.Marker;
 import com.onlylemi.mapview.library.utils.MapMath;
 import com.onlylemi.mapview.library.R;
 
@@ -20,11 +21,10 @@ import java.util.List;
  *
  * @author: onlylemi
  */
-public class MarkLayer extends MapBaseLayer {
+public class MarkerLayer extends MapBaseLayer {
 
-    private List<PointF> marks;
-    private List<String> marksName;
-    private MarkIsClickListener listener;
+    private List<Marker> marks;
+    private OnMarkerClickListener listener;
 
     private Bitmap bmpMark, bmpMarkTouch;
 
@@ -34,14 +34,13 @@ public class MarkLayer extends MapBaseLayer {
 
     private Paint paint;
 
-    public MarkLayer(MapView mapView) {
-        this(mapView, null, null);
+    public MarkerLayer(MapView mapView) {
+        this(mapView, null);
     }
 
-    public MarkLayer(MapView mapView, List<PointF> marks, List<String> marksName) {
+    public MarkerLayer(MapView mapView, List<Marker> marks) {
         super(mapView);
         this.marks = marks;
-        this.marksName = marksName;
 
         initLayer();
     }
@@ -78,15 +77,14 @@ public class MarkLayer extends MapBaseLayer {
             }
 
             if (listener != null && isClickMark) {
-                listener.markIsClick(num);
+                listener.onMarkerClick(marks.get(num));
                 mapView.refresh();
             }
         }
     }
 
     @Override
-    public void draw(Canvas canvas, Matrix currentMatrix, float currentZoom, float
-            currentRotateDegrees) {
+    public void draw(Canvas canvas, Matrix currentMatrix, float currentZoom, float currentRotateDegrees) {
         if (isVisible && marks != null) {
             canvas.save();
             if (!marks.isEmpty()) {
@@ -98,14 +96,14 @@ public class MarkLayer extends MapBaseLayer {
                     paint.setColor(Color.BLACK);
                     paint.setTextSize(radiusMark);
                     //mark name
-                    if (mapView.getCurrentZoom() > 1.0 && marksName != null
-                            && marksName.size() == marks.size()) {
-                        canvas.drawText(marksName.get(i), goal[0] - radiusMark, goal[1] -
+                    if (mapView.getCurrentZoom() > 1.0) {
+                        canvas.drawText(marks.get(i).getTitle(), goal[0] - radiusMark, goal[1] -
                                 radiusMark / 2, paint);
                     }
                     //mark ico
-                    canvas.drawBitmap(bmpMark, goal[0] - bmpMark.getWidth() / 2,
-                            goal[1] - bmpMark.getHeight() / 2, paint);
+                    float left = goal[0] - bmpMark.getWidth() / 2;
+                    float top = goal[1] - bmpMark.getHeight() / 2;
+                    canvas.drawBitmap(bmpMark, left, top, paint);
                     if (i == num && isClickMark) {
                         canvas.drawBitmap(bmpMarkTouch, goal[0] - bmpMarkTouch.getWidth() / 2,
                                 goal[1] - bmpMarkTouch.getHeight(), paint);
@@ -124,31 +122,23 @@ public class MarkLayer extends MapBaseLayer {
         this.num = num;
     }
 
-    public List<PointF> getMarks() {
+    public List<Marker> getMarks() {
         return marks;
     }
 
-    public void setMarks(List<PointF> marks) {
+    public void setMarks(List<Marker> marks) {
         this.marks = marks;
-    }
-
-    public List<String> getMarksName() {
-        return marksName;
-    }
-
-    public void setMarksName(List<String> marksName) {
-        this.marksName = marksName;
     }
 
     public boolean isClickMark() {
         return isClickMark;
     }
 
-    public void setMarkIsClickListener(MarkIsClickListener listener) {
+    public void setOnMarkerClickListener(OnMarkerClickListener listener) {
         this.listener = listener;
     }
 
-    public interface MarkIsClickListener {
-        void markIsClick(int num);
+    public interface OnMarkerClickListener {
+        void onMarkerClick(Marker marker);
     }
 }
