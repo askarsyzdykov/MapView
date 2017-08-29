@@ -24,7 +24,7 @@ This a indoor map view named MapView for `Android`. It also offer some layers. I
 
 ## Demo
 
-I offer every layer demo and you can look the [demo](https://github.com/onlylemi/MapView/tree/master/demo) floder. And the following is a screenshot of demo.
+I offer every layer demo and you can look the [demo](https://github.com/askarsyzdykov/MapView/tree/master/demo) folder. And the following is a screenshot of demo.
 
 ![](https://raw.githubusercontent.com/onlylemi/notes/master/images/android_mapview_1.gif)
 ![](https://raw.githubusercontent.com/onlylemi/notes/master/images/android_mapview_2.gif)
@@ -32,39 +32,10 @@ I offer every layer demo and you can look the [demo](https://github.com/onlylemi
 
 ## Usage
 
-### Gradle
-
-```groovy
-allprojects {
-	repositories {
-		maven { url "https://jitpack.io" }
-	}
-}
-	
-dependencies {
-    compile 'com.github.onlylemi:mapview:v1.0'
-}
-```
-
-### Maven
-
-```xml
-<repositories>
-	<repository>
-	    <id>jitpack.io</id>
-	    <url>https://jitpack.io</url>
-	</repository>
-</repositories>
-
-<dependency>
-    <groupId>com.github.onlylemi</groupId>
-    <artifactId>mapview</artifactId>
-    <version>v1.0</version>
-</dependency>
-```
+Include this project as module in your project
 
 ## About me
 
-Welcome to pull [requests](https://github.com/onlylemi/GeneticTSP/pulls).  
+Welcome to pull [requests](https://github.com/askarsyzdykov/MapView/pulls).  
 
 If you have any new idea about this project, feel free to [contact me](mailto:askar.syzdykov@gmail.com).
