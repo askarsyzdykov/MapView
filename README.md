@@ -1,5 +1,7 @@
 # MapView
 
+Forked from [https://github.com/onlylemi/MapView](https://github.com/onlylemi/MapView)
+
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MapView-green.svg?style=true)](https://android-arsenal.com/details/1/3497)
 [![jitpack](https://img.shields.io/badge/jitpack-v1.0-green.svg)](https://jitpack.io/#onlylemi/mapview)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/onlylemi/MapView/blob/master/LICENSE)
@@ -15,7 +17,7 @@ This a indoor map view named MapView for `Android`. It also offer some layers. I
 * LocationLayer
     * Sensor
 * BitmapLayer
-* MarkLayer
+* MarkerLayer
 * RouteLayer
     * ShortestPath By [FloydAlgorithm](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
     * BestPath By [GeneticAlgorithm](https://en.wikipedia.org/wiki/Genetic_algorithm)， and you also look [here](https://github.com/onlylemi/GeneticTSP).
@@ -65,4 +67,4 @@ dependencies {
 
 Welcome to pull [requests](https://github.com/onlylemi/GeneticTSP/pulls).  
 
-If you have any new idea about this project, feel free to [contact me](mailto:onlylemi.com@gmail.com). :smiley:
+If you have any new idea about this project, feel free to [contact me](mailto:askar.syzdykov@gmail.com).
