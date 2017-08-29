@@ -75,8 +75,8 @@ public class MarkerLayer extends MapBaseLayer {
 
             if (onMarkerClickListener != null && selectedMarker != null) {
                 onMarkerClickListener.onMarkerClick(selectedMarker);
-                mapView.refresh();
             }
+            mapView.refresh();
         }
     }
 
