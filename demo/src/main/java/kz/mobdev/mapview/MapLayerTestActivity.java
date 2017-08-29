@@ -14,6 +14,9 @@ import com.onlylemi.mapview.R;
 import java.io.IOException;
 import java.util.Random;
 
+import kz.mobdev.mapview.library.MapView;
+import kz.mobdev.mapview.library.MapViewListener;
+
 public class MapLayerTestActivity extends AppCompatActivity {
 
     private static final String TAG = "MapLayerTestActivity";

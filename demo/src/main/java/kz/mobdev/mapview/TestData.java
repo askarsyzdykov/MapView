@@ -5,7 +5,7 @@ import android.graphics.PointF;
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.mobdev.mapview.models.Marker;
+import kz.mobdev.mapview.library.models.Marker;
 
 /**
  * TestData

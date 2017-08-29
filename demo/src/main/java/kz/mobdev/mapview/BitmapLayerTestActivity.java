@@ -15,7 +15,9 @@ import com.onlylemi.mapview.R;
 import java.io.IOException;
 import java.util.Random;
 
-import kz.mobdev.mapview.layers.BitmapLayer;
+import kz.mobdev.mapview.library.MapView;
+import kz.mobdev.mapview.library.MapViewListener;
+import kz.mobdev.mapview.library.layers.BitmapLayer;
 
 public class BitmapLayerTestActivity extends AppCompatActivity {
 
@@ -37,7 +39,6 @@ public class BitmapLayerTestActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mapView.loadMap(bitmap);
         mapView.setMapViewListener(new MapViewListener() {
             @Override
             public void onMapLoadSuccess() {
@@ -61,6 +62,7 @@ public class BitmapLayerTestActivity extends AppCompatActivity {
                 Log.i(TAG, "onMapLoadFail");
             }
         });
+        mapView.loadMap(bitmap);
     }
 
     @Override

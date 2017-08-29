@@ -1,4 +1,4 @@
-package kz.mobdev.mapview.models;
+package kz.mobdev.mapview.library.models;
 
 
 import android.graphics.Bitmap;

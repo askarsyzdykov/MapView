@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import kz.mobdev.mapview.layers.MarkerLayer;
-import kz.mobdev.mapview.layers.RouteLayer;
-import kz.mobdev.mapview.models.Marker;
-import kz.mobdev.mapview.utils.MapUtils;
+import kz.mobdev.mapview.library.MapView;
+import kz.mobdev.mapview.library.MapViewListener;
+import kz.mobdev.mapview.library.layers.MarkerLayer;
+import kz.mobdev.mapview.library.layers.RouteLayer;
+import kz.mobdev.mapview.library.models.Marker;
+import kz.mobdev.mapview.library.utils.MapUtils;
 
 public class RouteLayerTestActivity extends AppCompatActivity {
 

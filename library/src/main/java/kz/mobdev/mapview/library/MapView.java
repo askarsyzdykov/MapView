@@ -1,4 +1,4 @@
-package kz.mobdev.mapview;
+package kz.mobdev.mapview.library;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,10 +15,10 @@ import android.view.SurfaceView;
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.mobdev.mapview.layers.MapBaseLayer;
-import kz.mobdev.mapview.layers.MapLayer;
-import kz.mobdev.mapview.utils.MapMath;
-import kz.mobdev.mapview.utils.MapUtils;
+import kz.mobdev.mapview.library.layers.MapBaseLayer;
+import kz.mobdev.mapview.library.layers.MapLayer;
+import kz.mobdev.mapview.library.utils.MapMath;
+import kz.mobdev.mapview.library.utils.MapUtils;
 
 /**
  * MapView

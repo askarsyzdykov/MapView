@@ -1,4 +1,4 @@
-package kz.mobdev.mapview.layers;
+package kz.mobdev.mapview.library.layers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,10 +8,10 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
-import kz.mobdev.mapview.MapView;
-import com.onlylemi.mapview.library.R;
-import kz.mobdev.mapview.models.Marker;
-import kz.mobdev.mapview.utils.MapMath;
+import kz.mobdev.mapview.library.MapView;
+import kz.mobdev.mapview.library.R;
+import kz.mobdev.mapview.library.models.Marker;
+import kz.mobdev.mapview.library.utils.MapMath;
 
 import java.util.ArrayList;
 import java.util.List;

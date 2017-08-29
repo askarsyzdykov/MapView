@@ -1,4 +1,4 @@
-package kz.mobdev.mapview.layers;
+package kz.mobdev.mapview.library.layers;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,7 +8,7 @@ import android.graphics.PointF;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import kz.mobdev.mapview.MapView;
+import kz.mobdev.mapview.library.MapView;
 
 /**
  * BitmapLayer

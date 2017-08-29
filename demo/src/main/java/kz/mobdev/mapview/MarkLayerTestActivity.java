@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.mobdev.mapview.layers.MarkerLayer;
-import kz.mobdev.mapview.models.Marker;
+import kz.mobdev.mapview.library.MapView;
+import kz.mobdev.mapview.library.MapViewListener;
+import kz.mobdev.mapview.library.layers.MarkerLayer;
+import kz.mobdev.mapview.library.models.Marker;
 
 public class MarkLayerTestActivity extends AppCompatActivity {
 
@@ -57,17 +59,17 @@ public class MarkLayerTestActivity extends AppCompatActivity {
                 markers.add(Marker.newBuilder()
                         .setTitle("Second. Red")
                         .setPosition(new PointF(172.5f, 65))
-                        .setSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.end_point))
+                        .setSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), R.mipmap.end_point))
                         .build());
                 markers.add(Marker.newBuilder()
                         .setTitle("Third. Green")
                         .setPosition(new PointF(45, 185))
-                        .setSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.start_point))
+                        .setSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), R.mipmap.start_point))
                         .build());
 
                 markerLayer = new MarkerLayer(mapView, markers);
-                markerLayer.setDefaultIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.mark));
-                markerLayer.setDefaultSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.mark_touch));
+                markerLayer.setDefaultIcon(BitmapFactory.decodeResource(mapView.getResources(), kz.mobdev.mapview.library.R.mipmap.mark));
+                markerLayer.setDefaultSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), kz.mobdev.mapview.library.R.mipmap.mark_touch));
                 markerLayer.setOnMarkerClickListener(new MarkerLayer.OnMarkerClickListener() {
                     @Override
                     public void onMarkerClick(Marker marker) {

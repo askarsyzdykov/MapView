@@ -1,4 +1,4 @@
-package kz.mobdev.mapview.utils.math;
+package kz.mobdev.mapview.library.utils.math;
 
 import java.util.ArrayList;
 import java.util.List;

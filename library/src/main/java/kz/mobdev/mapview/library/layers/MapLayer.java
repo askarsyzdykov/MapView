@@ -1,4 +1,4 @@
-package kz.mobdev.mapview.layers;
+package kz.mobdev.mapview.library.layers;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 
-import kz.mobdev.mapview.MapView;
+import kz.mobdev.mapview.library.MapView;
 
 /**
  * MapLayer

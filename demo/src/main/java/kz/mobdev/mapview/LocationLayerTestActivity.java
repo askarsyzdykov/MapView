@@ -17,7 +17,9 @@ import com.onlylemi.mapview.R;
 
 import java.io.IOException;
 
-import kz.mobdev.mapview.layers.LocationLayer;
+import kz.mobdev.mapview.library.MapView;
+import kz.mobdev.mapview.library.MapViewListener;
+import kz.mobdev.mapview.library.layers.LocationLayer;
 
 public class LocationLayerTestActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -41,7 +43,6 @@ public class LocationLayerTestActivity extends AppCompatActivity implements Sens
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mapView.loadMap(bitmap);
         mapView.setMapViewListener(new MapViewListener() {
             @Override
             public void onMapLoadSuccess() {
@@ -57,9 +58,8 @@ public class LocationLayerTestActivity extends AppCompatActivity implements Sens
             public void onMapLoadFail() {
 
             }
-
         });
-
+        mapView.loadMap(bitmap);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     }

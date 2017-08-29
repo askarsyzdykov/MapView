@@ -1,10 +1,10 @@
-package kz.mobdev.mapview.utils;
+package kz.mobdev.mapview.library.utils;
 
 import android.graphics.PointF;
 
-import kz.mobdev.mapview.utils.math.FloydAlgorithm;
-import kz.mobdev.mapview.utils.math.GeneticAlgorithm;
-import kz.mobdev.mapview.utils.math.TSPNearestNeighbour;
+import kz.mobdev.mapview.library.utils.math.FloydAlgorithm;
+import kz.mobdev.mapview.library.utils.math.GeneticAlgorithm;
+import kz.mobdev.mapview.library.utils.math.TSPNearestNeighbour;
 
 import java.util.ArrayList;
 import java.util.List;

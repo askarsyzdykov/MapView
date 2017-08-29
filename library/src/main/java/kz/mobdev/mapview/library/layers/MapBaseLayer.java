@@ -1,11 +1,11 @@
-package kz.mobdev.mapview.layers;
+package kz.mobdev.mapview.library.layers;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 
-import kz.mobdev.mapview.MapView;
+import kz.mobdev.mapview.library.MapView;
 
 /**
  * MapBaseLayer

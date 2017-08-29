@@ -1,4 +1,4 @@
-package kz.mobdev.mapview.utils;
+package kz.mobdev.mapview.library.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
