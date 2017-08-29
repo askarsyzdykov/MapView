@@ -49,6 +49,11 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
     private float currentRotateDegrees = 0.0f;
     private float saveRotateDegrees = 0.0f;
 
+    /**
+     * Storing the previous action of motion event
+     */
+    private int prevEventAction;
+
     private static final int TOUCH_STATE_NO = 0; // no touch
     private static final int TOUCH_STATE_SCROLL = 1; // scroll(one point)
     private static final int TOUCH_STATE_SCALE = 2; // scale(two points)
@@ -181,7 +186,6 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
 
         float newDist;
         float newDegree;
-
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 saveMatrix.set(currentMatrix);
@@ -203,10 +207,11 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
                 break;
             case MotionEvent.ACTION_UP:
                 if (withFloorPlan(event.getX(), event.getY())) {
-//                    Log.i(TAG, event.getX() + " " + event.getY());
                     // layers on touch
-                    for (MapBaseLayer layer : layers) {
-                        layer.onTouch(event);
+                    if (prevEventAction == MotionEvent.ACTION_DOWN) {
+                        for (MapBaseLayer layer : layers) {
+                            layer.onTouch(event);
+                        }
                     }
                 }
                 currentTouchState = MapView.TOUCH_STATE_NO;
@@ -289,6 +294,7 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
             default:
                 break;
         }
+        prevEventAction = event.getAction();
         return true;
     }
 

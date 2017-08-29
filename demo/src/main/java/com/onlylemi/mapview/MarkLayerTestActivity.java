@@ -51,12 +51,14 @@ public class MarkLayerTestActivity extends AppCompatActivity {
                         .setPosition(new PointF(300, 185))
                         .build());
                 markers.add(Marker.newBuilder()
-                        .setTitle("Second")
+                        .setTitle("Second. Red")
                         .setPosition(new PointF(172.5f, 65))
+                        .setSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.end_point))
                         .build());
                 markers.add(Marker.newBuilder()
-                        .setTitle("Third")
+                        .setTitle("Third. Green")
                         .setPosition(new PointF(45, 185))
+                        .setSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.start_point))
                         .build());
 
                 markerLayer = new MarkerLayer(mapView, markers);

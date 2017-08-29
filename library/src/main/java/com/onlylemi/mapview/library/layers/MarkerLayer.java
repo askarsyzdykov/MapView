@@ -30,8 +30,6 @@ public class MarkerLayer extends MapBaseLayer {
     private Bitmap defaultSelectedIcon;
 
     private float radiusMark;
-    private boolean isClickMark = false;
-    private int num = -1;
 
     private Marker selectedMarker;
 
@@ -64,21 +62,13 @@ public class MarkerLayer extends MapBaseLayer {
         if (markers != null) {
             if (!markers.isEmpty()) {
                 float[] goal = mapView.convertMapXYToScreenXY(event.getX(), event.getY());
-                Marker marker;
-                for (int i = 0; i < markers.size(); i++) {
-                    marker = markers.get(i);
+                selectedMarker = null;
+                for (Marker marker : markers) {
                     Bitmap icon = marker.getIcon() == null ? defaultIcon : marker.getIcon();
                     if (MapMath.getDistanceBetweenTwoPoints(goal[0], goal[1],
                             marker.x - icon.getWidth() / 2, marker.y - icon.getHeight() / 2) <= 50) {
-                        selectedMarker = markers.get(i);
-                        num = i;
-                        isClickMark = true;
+                        selectedMarker = marker;
                         break;
-                    }
-
-                    if (i == markers.size() - 1) {
-                        selectedMarker = null;
-                        isClickMark = false;
                     }
                 }
             }
@@ -95,25 +85,24 @@ public class MarkerLayer extends MapBaseLayer {
         if (isVisible && markers != null) {
             canvas.save();
             if (!markers.isEmpty()) {
-                for (int i = 0; i < markers.size(); i++) {
-                    Marker marker = markers.get(i);
+                for (Marker marker : markers) {
                     float[] goal = {marker.x, marker.y};
                     currentMatrix.mapPoints(goal);
 
                     paint.setColor(Color.BLACK);
                     paint.setTextSize(radiusMark);
-                    //mark name
+                    //marker title
                     if (mapView.getCurrentZoom() > 1.0) {
-                        canvas.drawText(markers.get(i).getTitle(), goal[0] - radiusMark, goal[1] -
+                        canvas.drawText(marker.getTitle(), goal[0] - radiusMark, goal[1] -
                                 radiusMark / 2, paint);
                     }
-                    //mark ico
+                    //marker icon
                     Bitmap icon = marker.getIcon() == null ? defaultIcon : marker.getIcon();
                     float left = goal[0] - icon.getWidth() / 2;
                     float top = goal[1] - icon.getHeight() / 2;
                     canvas.drawBitmap(icon, left, top, paint);
 
-                    if (selectedMarker != null && selectedMarker == markers.get(i)) {
+                    if (selectedMarker != null && selectedMarker == marker) {
                         Bitmap selectedIcon = selectedMarker.getSelectedIcon() == null ? defaultSelectedIcon : selectedMarker.getSelectedIcon();
                         canvas.drawBitmap(selectedIcon, goal[0] - selectedIcon.getWidth() / 2,
                                 goal[1] - selectedIcon.getHeight(), paint);
@@ -124,24 +113,12 @@ public class MarkerLayer extends MapBaseLayer {
         }
     }
 
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
     public List<Marker> getMarkers() {
         return markers;
     }
 
     public void setMarkers(List<Marker> markers) {
         this.markers = markers;
-    }
-
-    public boolean isClickMark() {
-        return isClickMark;
     }
 
     public Marker getSelectedMarker() {
