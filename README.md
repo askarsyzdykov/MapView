@@ -2,7 +2,13 @@
 
 Forked from [https://github.com/onlylemi/MapView](https://github.com/onlylemi/MapView)
 
-##What's changed?
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MapView-green.svg?style=true)](https://android-arsenal.com/details/1/3497)
+[![jitpack](https://img.shields.io/badge/jitpack-v1.0-green.svg)](https://jitpack.io/#onlylemi/mapview)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/onlylemi/MapView/blob/master/LICENSE)
+
+This a indoor map view named MapView for `Android`. It also offer some layers. If you are doing a indoor map application and try to do it.
+
+## What's changed?
 
 * Marker
    * Instead using PointF class in some places
@@ -14,12 +20,6 @@ Forked from [https://github.com/onlylemi/MapView](https://github.com/onlylemi/Ma
    * New method 'deleteMarker(Marker)'
    * New method 'clear()'
    * Custom selected marker icon
-
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MapView-green.svg?style=true)](https://android-arsenal.com/details/1/3497)
-[![jitpack](https://img.shields.io/badge/jitpack-v1.0-green.svg)](https://jitpack.io/#onlylemi/mapview)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/onlylemi/MapView/blob/master/LICENSE)
-
-This a indoor map view named MapView for `Android`. It also offer some layers. If you are doing a indoor map application and try to do it.
 
 ## Layers
 
