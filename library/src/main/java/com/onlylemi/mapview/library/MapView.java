@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -64,6 +65,8 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
     private float oldDist = 0, oldDegree = 0;
     private boolean isScaleAndRotateTogether = false;
 
+    private GestureDetector gestureDetector;
+
     public MapView(Context context) {
         this(context, null);
     }
@@ -103,6 +106,27 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
                 return true;
             }
         };
+
+        gestureDetector = new GestureDetector(null, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent event) {
+                setCurrentZoom(getCurrentZoom() + 2);
+                refresh();
+                return true;
+            }
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent event) {
+                if (withFloorPlan(event.getX(), event.getY())) {
+                    // layers on touch
+                    for (MapBaseLayer layer : layers) {
+                        layer.onTouch(event);
+                    }
+                }
+                currentTouchState = MapView.TOUCH_STATE_NO;
+                return super.onSingleTapConfirmed(event);
+            }
+        });
     }
 
     @Override
@@ -184,6 +208,9 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
             return false;
         }
 
+        if (gestureDetector.onTouchEvent(event)) {
+            return true;
+        }
         float newDist;
         float newDegree;
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -204,17 +231,6 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
                     oldDist = distance(event, mid);
                     oldDegree = rotation(event, mid);
                 }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (withFloorPlan(event.getX(), event.getY())) {
-                    // layers on touch
-                    if (prevEventAction == MotionEvent.ACTION_DOWN) {
-                        for (MapBaseLayer layer : layers) {
-                            layer.onTouch(event);
-                        }
-                    }
-                }
-                currentTouchState = MapView.TOUCH_STATE_NO;
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 currentTouchState = MapView.TOUCH_STATE_NO;
