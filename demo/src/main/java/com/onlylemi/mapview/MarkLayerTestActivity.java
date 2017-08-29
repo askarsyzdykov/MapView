@@ -2,8 +2,10 @@ package com.onlylemi.mapview;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.onlylemi.mapview.library.MapView;
@@ -18,12 +20,19 @@ import java.util.List;
 public class MarkLayerTestActivity extends AppCompatActivity {
 
     private MapView mapView;
-    private MarkerLayer markLayer;
+    private MarkerLayer markerLayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mark_layer_test);
+
+        findViewById(R.id.btn_clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                markerLayer.clear();
+            }
+        });
 
         mapView = (MapView) findViewById(R.id.mapview);
         Bitmap bitmap = null;
@@ -37,21 +46,34 @@ public class MarkLayerTestActivity extends AppCompatActivity {
             @Override
             public void onMapLoadSuccess() {
                 List<Marker> markers = new ArrayList<>();
+                markers.add(Marker.newBuilder()
+                        .setTitle("First")
+                        .setPosition(new PointF(300, 185))
+                        .build());
+                markers.add(Marker.newBuilder()
+                        .setTitle("Second")
+                        .setPosition(new PointF(172.5f, 65))
+                        .build());
+                markers.add(Marker.newBuilder()
+                        .setTitle("Third")
+                        .setPosition(new PointF(45, 185))
+                        .build());
 
-                markers.add(new Marker(300, 185, "First"));
-                markers.add(new Marker(172.5f, 65, "Second"));
-                markers.add(new Marker(45, 185, "Third"));
-
-                markLayer = new MarkerLayer(mapView, markers);
-                markLayer.setOnMarkerClickListener(new MarkerLayer.OnMarkerClickListener() {
+                markerLayer = new MarkerLayer(mapView, markers);
+                markerLayer.setDefaultIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.mark));
+                markerLayer.setDefaultSelectedIcon(BitmapFactory.decodeResource(mapView.getResources(), com.onlylemi.mapview.library.R.mipmap.mark_touch));
+                markerLayer.setOnMarkerClickListener(new MarkerLayer.OnMarkerClickListener() {
                     @Override
                     public void onMarkerClick(Marker marker) {
                         Toast.makeText(getApplicationContext(), marker.getTitle() + " is " +
                                 "selected", Toast.LENGTH_SHORT).show();
                     }
                 });
-                mapView.addLayer(markLayer);
-                mapView.refresh();
+                markerLayer.addMarker(Marker.newBuilder()
+                        .setTitle("Fourth")
+                        .setPosition(new PointF(505, 185))
+                        .build());
+                mapView.addLayer(markerLayer);
             }
 
             @Override

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MapView</string>
+    <string name="clear_map">Clear map</string>
 
     <array name="maplayer_name">
         <item>MapLayerTest</item>

@@ -1,6 +1,7 @@
 package com.onlylemi.mapview.library.models;
 
 
+import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.text.TextUtils;
 
@@ -8,30 +9,15 @@ public class Marker extends PointF {
 
     private Object object;
     private String title;
+    private Bitmap icon;
+    private Bitmap selectedIcon;
 
-    public Marker(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
+    private Marker() {
 
-    public Marker(float x, float y, String title) {
-        this.x = x;
-        this.y = y;
-        this.title = title;
-    }
-
-    public Marker(float x, float y, Object object) {
-        this.x = x;
-        this.y = y;
-        this.object = object;
     }
 
     public Object getObject() {
         return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
     }
 
     public String getTitle() {
@@ -44,7 +30,52 @@ public class Marker extends PointF {
         return this.toString();
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Bitmap getIcon() {
+        return icon;
+    }
+
+    public Bitmap getSelectedIcon() {
+        return selectedIcon;
+    }
+
+    public static Builder newBuilder() {
+        return new Marker().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+            // private constructor
+        }
+
+        public Builder setTitle(String title) {
+            Marker.this.title = title;
+
+            return this;
+        }
+
+        public Builder setIcon(Bitmap icon) {
+            Marker.this.icon = icon;
+
+            return this;
+        }
+
+        public Builder setSelectedIcon(Bitmap selectedIcon) {
+            Marker.this.selectedIcon = selectedIcon;
+
+            return this;
+        }
+
+        public Builder setPosition(PointF position) {
+            Marker.this.x = position.x;
+            Marker.this.y = position.y;
+
+            return this;
+        }
+
+        public Marker build() {
+            return Marker.this;
+        }
+
     }
 }
