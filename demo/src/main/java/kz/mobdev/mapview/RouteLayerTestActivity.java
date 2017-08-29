@@ -50,10 +50,11 @@ public class RouteLayerTestActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mapView.loadMap(bitmap);
         mapView.setMapViewListener(new MapViewListener() {
             @Override
             public void onMapLoadSuccess() {
+                Log.d(TAG, "onMapLoadSuccess");
+
                 routeLayer = new RouteLayer(mapView);
                 mapView.addLayer(routeLayer);
 
@@ -78,6 +79,7 @@ public class RouteLayerTestActivity extends AppCompatActivity {
             }
 
         });
+        mapView.loadMap(bitmap);
     }
 
     @Override

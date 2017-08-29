@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import kz.mobdev.mapview.layers.MarkerLayer;
 import kz.mobdev.mapview.models.Marker;
 
 public class MarkLayerTestActivity extends AppCompatActivity {
+
+    private static final String TAG = "MarkLayerTestActivity";
 
     private MapView mapView;
     private MarkerLayer markerLayer;
@@ -41,10 +44,11 @@ public class MarkLayerTestActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mapView.loadMap(bitmap);
         mapView.setMapViewListener(new MapViewListener() {
             @Override
             public void onMapLoadSuccess() {
+                Log.d(TAG, "onMapLoadSuccess");
+
                 List<Marker> markers = new ArrayList<>();
                 markers.add(Marker.newBuilder()
                         .setTitle("First")
@@ -80,9 +84,9 @@ public class MarkLayerTestActivity extends AppCompatActivity {
 
             @Override
             public void onMapLoadFail() {
-
+                Log.d(TAG, "onMapLoadFail");
             }
-
         });
+        mapView.loadMap(bitmap);
     }
 }
