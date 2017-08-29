@@ -2,6 +2,8 @@ package com.onlylemi.mapview;
 
 import android.graphics.PointF;
 
+import com.onlylemi.mapview.library.models.Marker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,8 @@ import java.util.List;
  */
 public final class TestData {
 
-    private TestData() {}
+    private TestData() {
+    }
 
     public static List<PointF> getNodesList() {
         List<PointF> nodes = new ArrayList<>();
@@ -211,48 +214,48 @@ public final class TestData {
         return nodesContact;
     }
 
-    public static List<PointF> getMarks() {
-        List<PointF> marks = new ArrayList<>();
-        marks.add(new PointF(850, 135));
-        marks.add(new PointF(720, 135));
-        marks.add(new PointF(610, 135));
-        marks.add(new PointF(435, 135));
-        marks.add(new PointF(270, 135));
-        marks.add(new PointF(320, 255));
-        marks.add(new PointF(530, 255));
-        marks.add(new PointF(320, 355));
-        marks.add(new PointF(320, 480));
-        marks.add(new PointF(320, 605));
-        marks.add(new PointF(530, 355));
-        marks.add(new PointF(530, 430));
-        marks.add(new PointF(530, 505));
-        marks.add(new PointF(500, 610));
-        marks.add(new PointF(220, 765));
-        marks.add(new PointF(260, 765));
-        marks.add(new PointF(300, 765));
-        marks.add(new PointF(360, 710));
-        marks.add(new PointF(475, 710));
-        marks.add(new PointF(353, 780));
-        marks.add(new PointF(430, 780));
-        marks.add(new PointF(580, 765));
-        marks.add(new PointF(645, 780));
-        marks.add(new PointF(800, 685));
-        marks.add(new PointF(900, 685));
-        marks.add(new PointF(990, 685));
-        marks.add(new PointF(1140, 685));
-        marks.add(new PointF(1140, 455));
-        marks.add(new PointF(785, 525));
-        marks.add(new PointF(836, 315));
-        marks.add(new PointF(1140, 343));
-        marks.add(new PointF(1140, 260));
-        marks.add(new PointF(970, 310));
-        marks.add(new PointF(190, 280));
-        marks.add(new PointF(190, 410));
-        marks.add(new PointF(190, 480));
-        marks.add(new PointF(190, 550));
-        marks.add(new PointF(630, 195));
-        marks.add(new PointF(630, 635));
-        marks.add(new PointF(1020, 40));
+    public static List<Marker> getMarks() {
+        List<Marker> marks = new ArrayList<>();
+        marks.add(Marker.newBuilder().setPosition(850, 135).build());
+        marks.add(Marker.newBuilder().setPosition(720, 135).build());
+        marks.add(Marker.newBuilder().setPosition(610, 135).build());
+        marks.add(Marker.newBuilder().setPosition(435, 135).build());
+        marks.add(Marker.newBuilder().setPosition(270, 135).build());
+        marks.add(Marker.newBuilder().setPosition(320, 255).build());
+        marks.add(Marker.newBuilder().setPosition(530, 255).build());
+        marks.add(Marker.newBuilder().setPosition(320, 355).build());
+        marks.add(Marker.newBuilder().setPosition(320, 480).build());
+        marks.add(Marker.newBuilder().setPosition(320, 605).build());
+        marks.add(Marker.newBuilder().setPosition(530, 355).build());
+        marks.add(Marker.newBuilder().setPosition(530, 430).build());
+        marks.add(Marker.newBuilder().setPosition(530, 505).build());
+        marks.add(Marker.newBuilder().setPosition(500, 610).build());
+        marks.add(Marker.newBuilder().setPosition(220, 765).build());
+        marks.add(Marker.newBuilder().setPosition(260, 765).build());
+        marks.add(Marker.newBuilder().setPosition(300, 765).build());
+        marks.add(Marker.newBuilder().setPosition(360, 710).build());
+        marks.add(Marker.newBuilder().setPosition(475, 710).build());
+        marks.add(Marker.newBuilder().setPosition(353, 780).build());
+        marks.add(Marker.newBuilder().setPosition(430, 780).build());
+        marks.add(Marker.newBuilder().setPosition(580, 765).build());
+        marks.add(Marker.newBuilder().setPosition(645, 780).build());
+        marks.add(Marker.newBuilder().setPosition(800, 685).build());
+        marks.add(Marker.newBuilder().setPosition(900, 685).build());
+        marks.add(Marker.newBuilder().setPosition(990, 685).build());
+        marks.add(Marker.newBuilder().setPosition(1140, 685).build());
+        marks.add(Marker.newBuilder().setPosition(1140, 455).build());
+        marks.add(Marker.newBuilder().setPosition(785, 525).build());
+        marks.add(Marker.newBuilder().setPosition(836, 315).build());
+        marks.add(Marker.newBuilder().setPosition(1140, 343).build());
+        marks.add(Marker.newBuilder().setPosition(1140, 260).build());
+        marks.add(Marker.newBuilder().setPosition(970, 310).build());
+        marks.add(Marker.newBuilder().setPosition(190, 280).build());
+        marks.add(Marker.newBuilder().setPosition(190, 410).build());
+        marks.add(Marker.newBuilder().setPosition(190, 480).build());
+        marks.add(Marker.newBuilder().setPosition(190, 550).build());
+        marks.add(Marker.newBuilder().setPosition(630, 195).build());
+        marks.add(Marker.newBuilder().setPosition(630, 635).build());
+        marks.add(Marker.newBuilder().setPosition(1020, 40).build());
 
         return marks;
     }

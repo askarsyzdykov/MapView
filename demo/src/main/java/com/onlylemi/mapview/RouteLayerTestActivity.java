@@ -12,6 +12,7 @@ import com.onlylemi.mapview.library.MapView;
 import com.onlylemi.mapview.library.MapViewListener;
 import com.onlylemi.mapview.library.layers.MarkerLayer;
 import com.onlylemi.mapview.library.layers.RouteLayer;
+import com.onlylemi.mapview.library.models.Marker;
 import com.onlylemi.mapview.library.utils.MapUtils;
 
 import java.io.IOException;
@@ -28,8 +29,7 @@ public class RouteLayerTestActivity extends AppCompatActivity {
 
     private List<PointF> nodes;
     private List<PointF> nodesContract;
-    private List<PointF> marks;
-    private List<String> marksName;
+    private List<Marker> markers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,7 @@ public class RouteLayerTestActivity extends AppCompatActivity {
 
         nodes = TestData.getNodesList();
         nodesContract = TestData.getNodesContactList();
-        marks = TestData.getMarks();
-        marksName = TestData.getMarksName();
+        markers = TestData.getMarks();
         MapUtils.init(nodes.size(), nodesContract.size());
 
         mapView = (MapView) findViewById(R.id.mapview);
@@ -56,19 +55,18 @@ public class RouteLayerTestActivity extends AppCompatActivity {
                 routeLayer = new RouteLayer(mapView);
                 mapView.addLayer(routeLayer);
 
-                /*markLayer = new MarkerLayer(mapView, marks);
+                markLayer = new MarkerLayer(mapView, markers);
                 mapView.addLayer(markLayer);
-                markLayer.setOnMarkerClickListener(new MarkerLayer.MarkIsClickListener() {
+                markLayer.setOnMarkerClickListener(new MarkerLayer.OnMarkerClickListener() {
                     @Override
-                    public void markIsClick(int num) {
-                        PointF target = new PointF(marks.get(num).x, marks.get(num).y);
+                    public void onMarkerClick(Marker marker) {
                         List<Integer> routeList = MapUtils.getShortestDistanceBetweenTwoPoints
-                                (marks.get(39), target, nodes, nodesContract);
+                                (markers.get(markers.size() - 1), marker, nodes, nodesContract);
                         routeLayer.setNodeList(nodes);
                         routeLayer.setRouteList(routeList);
                         mapView.refresh();
                     }
-                });*/
+                });
                 mapView.refresh();
             }
 
@@ -91,11 +89,11 @@ public class RouteLayerTestActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.route_layer_tsp:
                     List<PointF> list = new ArrayList<>();
-                    list.add(marks.get(39));
-                    list.add(marks.get(new Random().nextInt(10)));
-                    list.add(marks.get(new Random().nextInt(10) + 10));
-                    list.add(marks.get(new Random().nextInt(10) + 20));
-                    list.add(marks.get(new Random().nextInt(10) + 9));
+                    list.add(markers.get(markers.size() - 1));
+                    list.add(markers.get(new Random().nextInt(10)));
+                    list.add(markers.get(new Random().nextInt(10) + 10));
+                    list.add(markers.get(new Random().nextInt(10) + 20));
+                    list.add(markers.get(new Random().nextInt(10) + 9));
                     List<Integer> routeList = MapUtils.getBestPathBetweenPoints(list, nodes,
                             nodesContract);
                     routeLayer.setNodeList(nodes);

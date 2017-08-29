@@ -27,7 +27,7 @@ public class Marker extends PointF {
         if (object != null) {
             return object.toString();
         }
-        return this.toString();
+        return "";
     }
 
     public Bitmap getIcon() {
@@ -66,11 +66,15 @@ public class Marker extends PointF {
             return this;
         }
 
-        public Builder setPosition(PointF position) {
-            Marker.this.x = position.x;
-            Marker.this.y = position.y;
+        public Builder setPosition(float x, float y) {
+            Marker.this.x = x;
+            Marker.this.y = y;
 
             return this;
+        }
+
+        public Builder setPosition(PointF position) {
+            return setPosition(position.x, position.y);
         }
 
         public Marker build() {
