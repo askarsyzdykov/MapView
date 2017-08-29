@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.onlylemi.mapview.RouteLayerTestActivity">
+    tools:context="com.onlylemi.mapview.kz.onlylemi.mapview.RouteLayerTestActivity">
 
     <include layout="@layout/map_view"/>
 

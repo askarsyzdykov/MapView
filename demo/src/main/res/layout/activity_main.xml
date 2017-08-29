@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.onlylemi.mapview.MainActivity">
+    tools:context="com.onlylemi.mapview.kz.onlylemi.mapview.MainActivity">
 
     <ListView
         android:id="@+id/mapview_lv"

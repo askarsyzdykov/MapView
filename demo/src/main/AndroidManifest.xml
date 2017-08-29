@@ -4,13 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:name=".DemoApplication"
+        android:name="kz.mobdev.mapview.DemoApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="kz.mobdev.mapview.MainActivity"
             android:theme="@style/AppTheme.Boot">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,23 +19,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MapLayerTestActivity"
+            android:name="kz.mobdev.mapview.MapLayerTestActivity"
             android:label="MapLayerTest">
         </activity>
         <activity
-            android:name=".LocationLayerTestActivity"
+            android:name="kz.mobdev.mapview.LocationLayerTestActivity"
             android:label="LocationLayerTest">
         </activity>
         <activity
-            android:name=".BitmapLayerTestActivity"
+            android:name="kz.mobdev.mapview.BitmapLayerTestActivity"
             android:label="BitmapLayerTest">
         </activity>
         <activity
-            android:name=".MarkLayerTestActivity"
+            android:name="kz.mobdev.mapview.MarkLayerTestActivity"
             android:label="MarkLayerTest">
         </activity>
         <activity
-            android:name=".RouteLayerTestActivity"
+            android:name="kz.mobdev.mapview.RouteLayerTestActivity"
             android:label="RouteLayerTest">
         </activity>
     </application>
