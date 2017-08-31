@@ -15,23 +15,20 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private ListView maplayerListView;
-    private ArrayAdapter<String> mAdapter;
-
     private Class[] classes = {MapLayerTestActivity.class, BitmapLayerTestActivity.class,
-            LocationLayerTestActivity.class, MarkLayerTestActivity.class, RouteLayerTestActivity
-            .class};
+            LocationLayerTestActivity.class, MarkerLayerTestActivity.class, RouteLayerTestActivity
+            .class, ShapeLayerTestActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        maplayerListView = (ListView) findViewById(R.id.mapview_lv);
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+        ListView listView = (ListView) findViewById(R.id.mapview_lv);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.maplayer_name));
-        maplayerListView.setAdapter(mAdapter);
-        maplayerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(TAG, classes[position].getSimpleName());

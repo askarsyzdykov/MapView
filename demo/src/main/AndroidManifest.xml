@@ -31,12 +31,16 @@
             android:label="BitmapLayerTest">
         </activity>
         <activity
-            android:name="kz.mobdev.mapview.MarkLayerTestActivity"
-            android:label="MarkLayerTest">
+            android:name="kz.mobdev.mapview.MarkerLayerTestActivity"
+            android:label="MarkerLayerTest">
         </activity>
         <activity
             android:name="kz.mobdev.mapview.RouteLayerTestActivity"
             android:label="RouteLayerTest">
+        </activity>
+        <activity
+            android:name="kz.mobdev.mapview.ShapeLayerTestActivity"
+            android:label="PolygonLayerTest">
         </activity>
     </application>
 

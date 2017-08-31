@@ -8,5 +8,6 @@
         <item>LocationLayerTest</item>
         <item>MarkLayerTest</item>
         <item>RouteLayerTest</item>
+        <item>PolygonLayerTest</item>
     </array>
 </resources>

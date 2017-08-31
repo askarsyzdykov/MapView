@@ -20,7 +20,7 @@ import kz.mobdev.mapview.library.MapViewListener;
 import kz.mobdev.mapview.library.layers.MarkerLayer;
 import kz.mobdev.mapview.library.models.Marker;
 
-public class MarkLayerTestActivity extends AppCompatActivity {
+public class MarkerLayerTestActivity extends AppCompatActivity {
 
     private static final String TAG = "MarkLayerTestActivity";
 

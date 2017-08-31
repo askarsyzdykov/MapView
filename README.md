@@ -8,18 +8,21 @@ Forked from [https://github.com/onlylemi/MapView](https://github.com/onlylemi/Ma
 
 This a indoor map view named MapView for `Android`. It also offer some layers. If you are doing a indoor map application and try to do it.
 
-## What's changed?
-
+## What's new and changed?
 * Marker
    * Instead using PointF class in some places
 * MapView
-   * Double click for zooming in
+   * Double click for zoom in
 * MarkLayer
    * Renamed to MarkerLayer
    * New method 'addMarker(Marker)'
    * New method 'deleteMarker(Marker)'
    * New method 'clear()'
    * Custom selected marker icon
+* ShapeLayer
+   * Shape - abstract class
+   * Rect
+   * Polygon
 
 ## Layers
 
@@ -31,6 +34,7 @@ This a indoor map view named MapView for `Android`. It also offer some layers. I
     * Sensor
 * BitmapLayer
 * MarkerLayer
+* ShapeLayer
 * RouteLayer
     * ShortestPath By [FloydAlgorithm](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
     * BestPath By [GeneticAlgorithm](https://en.wikipedia.org/wiki/Genetic_algorithm)， and you also look [here](https://github.com/onlylemi/GeneticTSP).
