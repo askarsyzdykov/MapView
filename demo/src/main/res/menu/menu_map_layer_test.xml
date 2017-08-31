@@ -23,4 +23,8 @@
     <item
         android:id="@+id/map_layer_show_hide_zoom_controls"
         android:title="Show/Hide zoom controls"/>
+
+    <item
+        android:id="@+id/map_layer_show_hide_compass_button"
+        android:title="Show/Hide compass button"/>
 </menu>

@@ -36,6 +36,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
 
     SurfaceView surfaceView;
     LinearLayout viewZoomControls;
+    ImageButton btnCompass;
 
     private SurfaceHolder holder;
     private MapViewListener mapViewListener;
@@ -68,6 +69,8 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
     private float oldDist = 0, oldDegree = 0;
     private boolean isScaleAndRotateTogether = false;
 
+    private boolean isCompassVisible = true;
+
     private GestureDetector gestureDetector;
 
     public MapView(Context context) {
@@ -91,14 +94,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
         addView(surfaceView);
 
         initZoomControls();
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-        params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-        params.leftMargin = 16;
-
-        addView(viewZoomControls, params);
+        initCompassButton();
         //
 
         surfaceView.getHolder().addCallback(this);
@@ -171,6 +167,35 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
             }
         });
         viewZoomControls.addView(btnZoomOut);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+        params.leftMargin = 16;
+
+        addView(viewZoomControls, params);
+    }
+
+    private void initCompassButton() {
+        btnCompass = new ImageButton(getContext());
+        btnCompass.setImageDrawable(getResources().getDrawable(R.mipmap.ic_compass_direction));
+        btnCompass.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCurrentRotateDegrees(0);
+                refresh();
+            }
+        });
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        params.leftMargin = 16;
+        params.topMargin = 16;
+
+        addView(btnCompass, params);
     }
 
     @Override
@@ -206,6 +231,27 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
      */
     public boolean isZoomControlsVisible() {
         return viewZoomControls.getVisibility() == VISIBLE;
+    }
+
+    /**
+     * show/hide compass button
+     *
+     * @param isVisible
+     */
+    public void setCompassButtonVisible(boolean isVisible) {
+        this.isCompassVisible = isVisible;
+        btnCompass.setVisibility(isVisible ? VISIBLE : GONE);
+        onRotationChanged();
+    }
+
+    /**
+     * Returns btnCompass is visible
+     *
+     * @return <code>true</code> if the btnCompass is visible;
+     * <code>false</code> otherwise.
+     */
+    public boolean isCompassVisible() {
+        return isCompassVisible;
     }
 
     /**
@@ -363,6 +409,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
                         currentRotateDegrees = currentRotateDegrees > 0 ? currentRotateDegrees :
                                 currentRotateDegrees + 360;
                         currentMatrix.postRotate(rotate, mid.x, mid.y);
+                        onRotationChanged();
                         refresh();
 //                        Log.i(TAG, "rotate:" + currentRotateDegrees);
                         break;
@@ -475,6 +522,14 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
         currentRotateDegrees = degrees % 360;
         currentRotateDegrees = currentRotateDegrees > 0 ? currentRotateDegrees :
                 currentRotateDegrees + 360;
+
+        onRotationChanged();
+    }
+
+    private void onRotationChanged() {
+        if (isCompassVisible) {
+            btnCompass.setVisibility(currentRotateDegrees == 360 ? GONE : VISIBLE);
+        }
     }
 
     public float getCurrentZoom() {

@@ -13,6 +13,8 @@ This a indoor map view named MapView for `Android`. It also offer some layers. I
    * Instead using PointF class in some places
 * MapView
    * Double click for zoom in
+   * Added zooming controls
+   * Added compass button for rotate the map to 0°
 * MarkLayer
    * Renamed to MarkerLayer
    * New method 'addMarker(Marker)'
