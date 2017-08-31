@@ -19,4 +19,8 @@
     <item
         android:id="@+id/map_layer_set_auto_rotate_and_scale"
         android:title="Set Rotate and Scale Together"/>
+
+    <item
+        android:id="@+id/map_layer_show_hide_zoom_controls"
+        android:title="Show/Hide zoom controls"/>
 </menu>

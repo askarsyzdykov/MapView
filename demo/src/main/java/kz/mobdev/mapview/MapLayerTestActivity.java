@@ -76,6 +76,9 @@ public class MapLayerTestActivity extends AppCompatActivity {
                     mapView.setCurrentZoom(mapView.getCurrentZoom() * 2);
                     mapView.refresh();
                     break;
+                case R.id.map_layer_show_hide_zoom_controls:
+                    mapView.setZoomControlsVisible(!mapView.isZoomControlsVisible());
+                    break;
                 case R.id.map_layer_set_auto_rotate_and_scale:
                     if (mapView.isScaleAndRotateTogether()) {
                         item.setTitle("Set Rotate and Scale Together");

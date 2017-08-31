@@ -11,6 +11,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +28,14 @@ import kz.mobdev.mapview.library.utils.MapUtils;
 /**
  * MapView
  *
- * @author: onlylemi
+ * @author: onlylemi, Askar Syzdykov
  */
-public class MapView extends SurfaceView implements SurfaceHolder.Callback {
+public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
 
     private static final String TAG = "MapView";
+
+    SurfaceView surfaceView;
+    LinearLayout viewZoomControls;
 
     private SurfaceHolder holder;
     private MapViewListener mapViewListener;
@@ -79,7 +87,21 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
      * init mapview
      */
     private void initMapView() {
-        getHolder().addCallback(this);
+        surfaceView = new SurfaceView(getContext());
+        addView(surfaceView);
+
+        initZoomControls();
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+        params.leftMargin = 16;
+
+        addView(viewZoomControls, params);
+        //
+
+        surfaceView.getHolder().addCallback(this);
 
         layers = new ArrayList<MapBaseLayer>() {
             @Override
@@ -124,6 +146,33 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
         });
     }
 
+    private void initZoomControls() {
+        viewZoomControls = new LinearLayout(getContext());
+        viewZoomControls.setOrientation(LinearLayout.VERTICAL);
+
+        ImageButton btnZoomIn = new ImageButton(getContext());
+        btnZoomIn.setImageDrawable(getResources().getDrawable(R.drawable.ic_zoom_in));
+        btnZoomIn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCurrentZoom(currentZoom + 0.5f);
+                refresh();
+            }
+        });
+        viewZoomControls.addView(btnZoomIn);
+
+        ImageButton btnZoomOut = new ImageButton(getContext());
+        btnZoomOut.setImageDrawable(getResources().getDrawable(R.drawable.ic_zoom_out));
+        btnZoomOut.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCurrentZoom(currentZoom - 0.5f);
+                refresh();
+            }
+        });
+        viewZoomControls.addView(btnZoomOut);
+    }
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         this.holder = holder;
@@ -138,6 +187,25 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
+    }
+
+    /**
+     * show/hide zoom controls
+     *
+     * @param isVisible
+     */
+    public void setZoomControlsVisible(boolean isVisible) {
+        viewZoomControls.setVisibility(isVisible ? VISIBLE : GONE);
+    }
+
+    /**
+     * Returns viewZoomControls is visible
+     *
+     * @return <code>true</code> if the viewZoomControls is visible;
+     * <code>false</code> otherwise.
+     */
+    public boolean isZoomControlsVisible() {
+        return viewZoomControls.getVisibility() == VISIBLE;
     }
 
     /**
@@ -427,10 +495,16 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void setMaxZoom(float maxZoom) {
+        if (maxZoom <= minZoom) {
+            throw new IllegalArgumentException("MaxZoom cannot be less than minZoom");
+        }
         this.maxZoom = maxZoom;
     }
 
     public void setMinZoom(float minZoom) {
+        if (minZoom >= maxZoom) {
+            throw new IllegalArgumentException("MinZoom cannot be greater than maxZoom");
+        }
         this.minZoom = minZoom;
     }
 
@@ -439,6 +513,12 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void setCurrentZoom(float zoom, float x, float y) {
+        if (zoom < minZoom) {
+            zoom = minZoom;
+        }
+        if (zoom > maxZoom) {
+            zoom = maxZoom;
+        }
         currentMatrix.postScale(zoom / this.currentZoom, zoom / this.currentZoom, x, y);
         this.currentZoom = zoom;
     }
@@ -478,6 +558,5 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback {
     public float getMapHeight() {
         return mapLayer.getImage().getHeight();
     }
-
 
 }
