@@ -80,7 +80,7 @@ public class MapLayerTestActivity extends AppCompatActivity {
                     mapView.setZoomControlsVisible(!mapView.isZoomControlsVisible());
                     break;
                 case R.id.map_layer_show_hide_compass_button:
-                    mapView.setCompassButtonVisible(!mapView.isCompassVisible());
+                    mapView.setCompassButtonVisible(!mapView.isCompassButtonVisible());
                     break;
                 case R.id.map_layer_set_auto_rotate_and_scale:
                     if (mapView.isScaleAndRotateTogether()) {

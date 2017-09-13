@@ -3,6 +3,7 @@ package kz.mobdev.mapview.library;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
@@ -13,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -69,7 +71,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
     private float oldDist = 0, oldDegree = 0;
     private boolean isScaleAndRotateTogether = false;
 
-    private boolean isCompassVisible = true;
+    private boolean isCompassButtonVisible = true;
 
     private GestureDetector gestureDetector;
 
@@ -179,6 +181,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
 
     private void initCompassButton() {
         btnCompass = new ImageButton(getContext());
+        btnCompass.setBackgroundColor(Color.TRANSPARENT);
         btnCompass.setImageDrawable(getResources().getDrawable(R.mipmap.ic_compass_direction));
         btnCompass.setOnClickListener(new OnClickListener() {
             @Override
@@ -239,7 +242,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
      * @param isVisible
      */
     public void setCompassButtonVisible(boolean isVisible) {
-        this.isCompassVisible = isVisible;
+        this.isCompassButtonVisible = isVisible;
         btnCompass.setVisibility(isVisible ? VISIBLE : GONE);
         onRotationChanged();
     }
@@ -250,8 +253,8 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
      * @return <code>true</code> if the btnCompass is visible;
      * <code>false</code> otherwise.
      */
-    public boolean isCompassVisible() {
-        return isCompassVisible;
+    public boolean isCompassButtonVisible() {
+        return isCompassButtonVisible;
     }
 
     /**
@@ -409,6 +412,8 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
                         currentRotateDegrees = currentRotateDegrees > 0 ? currentRotateDegrees :
                                 currentRotateDegrees + 360;
                         currentMatrix.postRotate(rotate, mid.x, mid.y);
+
+                        btnCompass.animate().rotation(currentRotateDegrees).setInterpolator(new AccelerateDecelerateInterpolator());
                         onRotationChanged();
                         refresh();
 //                        Log.i(TAG, "rotate:" + currentRotateDegrees);
@@ -527,7 +532,7 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
     }
 
     private void onRotationChanged() {
-        if (isCompassVisible) {
+        if (isCompassButtonVisible) {
             btnCompass.setVisibility(currentRotateDegrees == 360 ? GONE : VISIBLE);
         }
     }
