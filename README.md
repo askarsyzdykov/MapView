@@ -51,7 +51,40 @@ I offer every layer demo and you can look the [demo](https://github.com/askarsyz
 
 ## Usage
 
-Include this project as module in your project
+1) Include this project as module in your project
+2) Put in your layout
+
+```xml
+<kz.mobdev.mapview.library.MapView
+    android:id="@+id/mapView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+```
+3) Add this code in Activity/Fragment
+```code
+MapView mapView = (MapView) findViewById(R.id.mapview);
+Bitmap bitmap = null;
+try {
+    bitmap = BitmapFactory.decodeStream(getAssets().open("map.png"));
+} catch (IOException e) {
+    e.printStackTrace();
+}
+mapView.loadMap(bitmap);
+mapView.setMapViewListener(new MapViewListener() {
+    @Override
+    public void onMapLoadSuccess() {
+        
+    }
+
+    @Override
+    public void onMapLoadFail() {
+        
+    }
+
+});
+```
+4) Enjoy!
 
 ## About me
 
