@@ -62,7 +62,7 @@ I offer every layer demo and you can look the [demo](https://github.com/askarsyz
     />
 ```
 3) Add this code in Activity/Fragment
-```code
+```java
 MapView mapView = (MapView) findViewById(R.id.mapview);
 Bitmap bitmap = null;
 try {
