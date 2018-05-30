@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Class[] classes = {MapLayerTestActivity.class, BitmapLayerTestActivity.class,
             LocationLayerTestActivity.class, MarkerLayerTestActivity.class, RouteLayerTestActivity
-            .class, ShapeLayerTestActivity.class};
+            .class, ShapeLayerTestActivity.class, BeaconRouteActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

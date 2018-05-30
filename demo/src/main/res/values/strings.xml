@@ -9,6 +9,7 @@
         <item>MarkLayerTest</item>
         <item>RouteLayerTest</item>
         <item>PolygonLayerTest</item>
+        <item>BeaconRouteTest</item>
     </array>
 
     <string name="error">Error</string>
