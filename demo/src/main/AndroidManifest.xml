@@ -12,7 +12,11 @@
         <activity
             android:name="kz.mobdev.mapview.MainActivity"
             android:theme="@style/AppTheme.Boot">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name="kz.mobdev.mapview.MapLayerTestActivity"
@@ -42,11 +46,6 @@
         <activity
             android:name="kz.mobdev.mapview.BeaconRouteActivity"
             android:label="BeaconLayerTest">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 
