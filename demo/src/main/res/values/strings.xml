@@ -10,4 +10,7 @@
         <item>RouteLayerTest</item>
         <item>PolygonLayerTest</item>
     </array>
+
+    <string name="error">Error</string>
+    <string name="error_permission">Permission not granted. Can`t start ranging</string>
 </resources>
