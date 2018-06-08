@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -22,8 +23,10 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import kz.mobdev.mapview.library.layers.LocationLayer;
 import kz.mobdev.mapview.library.layers.MapBaseLayer;
 import kz.mobdev.mapview.library.layers.MapLayer;
+import kz.mobdev.mapview.library.svg.SVGBuilder;
 import kz.mobdev.mapview.library.utils.MapMath;
 import kz.mobdev.mapview.library.utils.MapUtils;
 
@@ -74,6 +77,8 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
     private boolean isCompassButtonVisible = true;
 
     private GestureDetector gestureDetector;
+
+    private OnRotationChanged mOnRotationChanged;
 
     public MapView(Context context) {
         this(context, null);
@@ -277,8 +282,39 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
         }
     }
 
+    public void refreshLocationLayer() {
+        if (holder != null) {
+            canvas = holder.lockCanvas();
+            if (canvas != null) {
+                canvas.drawColor(-1);
+                if (isMapLoadFinish) {
+                    for (MapBaseLayer layer : layers) {
+                        if (layer.isVisible && !(layer instanceof MapLayer)) {
+                            layer.draw(canvas, currentMatrix, currentZoom, currentRotateDegrees);
+                        }
+                    }
+                }
+                holder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+
     public void loadMap(Bitmap bitmap) {
         loadMap(MapUtils.getPictureFromBitmap(bitmap));
+    }
+
+
+    public void loadMap(final String svgString) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                Picture picture = new SVGBuilder().readFromString(svgString).build().getPicture();
+                if (picture != null) {
+                    loadMap(picture);
+                }
+            }
+        }.start();
     }
 
     /**
@@ -405,9 +441,14 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
                         refresh();
                         break;
                     case MapView.TOUCH_STATE_ROTATE:
+                        if (mOnRotationChanged != null) {
+                            mOnRotationChanged.onRotateBegin();
+                            Log.d("suka", "onTouchEvent: begin");
+                        }
                         currentMatrix.set(saveMatrix);
                         newDegree = rotation(event, mid);
                         float rotate = newDegree - oldDegree;
+
                         currentRotateDegrees = (rotate + saveRotateDegrees) % 360;
                         currentRotateDegrees = currentRotateDegrees > 0 ? currentRotateDegrees :
                                 currentRotateDegrees + 360;
@@ -619,4 +660,13 @@ public class MapView extends RelativeLayout implements SurfaceHolder.Callback {
         return mapLayer.getImage().getHeight();
     }
 
+    public void setOnRotationChanged(OnRotationChanged onRotationChanged) {
+        mOnRotationChanged = onRotationChanged;
+    }
+
+    public interface OnRotationChanged {
+        void onRotateBegin();
+
+        void onRotateEnd();
+    }
 }

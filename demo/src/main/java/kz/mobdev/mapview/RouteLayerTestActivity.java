@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import kz.mobdev.mapview.data.TestData;
 import kz.mobdev.mapview.library.MapView;
 import kz.mobdev.mapview.library.MapViewListener;
 import kz.mobdev.mapview.library.layers.MarkerLayer;

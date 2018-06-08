@@ -1,9 +1,7 @@
-package kz.mobdev.mapview;
+package kz.mobdev.mapview.data;
 
 import android.graphics.PointF;
-import android.util.SparseArray;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

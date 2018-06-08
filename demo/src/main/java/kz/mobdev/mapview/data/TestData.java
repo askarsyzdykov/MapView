@@ -1,4 +1,4 @@
-package kz.mobdev.mapview;
+package kz.mobdev.mapview.data;
 
 import android.graphics.PointF;
 

@@ -5,6 +5,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import kz.mobdev.mapview.data.DataForBeacons;
+import kz.mobdev.mapview.data.Point;
 import kz.mobdev.mapview.library.MapView;
 import kz.mobdev.mapview.library.MapViewListener;
 import kz.mobdev.mapview.library.layers.LocationLayer;
@@ -38,13 +44,14 @@ import kz.mobdev.mapview.library.layers.MarkerLayer;
 import kz.mobdev.mapview.library.layers.RouteLayer;
 import kz.mobdev.mapview.library.models.Marker;
 import kz.mobdev.mapview.library.utils.MapUtils;
+import kz.mobdev.mapview.utils.AssetsHelper;
 
 import static com.leantegra.wibeat.sdk.monitoring.config.ScanConfig.SCAN_MODE_LOW_LATENCY;
 import static com.leantegra.wibeat.sdk.monitoring.distance.ProximityZone.IMMEDIATE;
 import static com.leantegra.wibeat.sdk.monitoring.distance.ProximityZone.NEAR;
 import static com.leantegra.wibeat.sdk.monitoring.info.FrameType.I_BEACON;
 
-public class BeaconRouteActivity extends AppCompatActivity implements ScanServiceConsumer {
+public class BeaconRouteActivity extends AppCompatActivity implements ScanServiceConsumer, SensorEventListener, MapView.OnRotationChanged {
 
     private static final String TAG = "BeaconRouteActivity";
 
@@ -64,6 +71,13 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
 
     private ScanServiceManager mScanServiceManager;
     private ArrayMap<String, BaseFrame> mFoundedDeviceMap = new ArrayMap<>();
+
+    private SensorManager sensorManager;
+    Sensor accelerometer;
+    Sensor magnetometer;
+
+    float[] mGravity = new float[3];
+    float[] mGeomagnetic = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +107,7 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
                 routeLayer = new RouteLayer(mapView);
                 mapView.addLayer(routeLayer);
 
+
                 markLayer = new MarkerLayer(mapView, markers);
                 mapView.addLayer(markLayer);
 
@@ -114,8 +129,6 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
 
                 locationLayer = new LocationLayer(mapView, null);
                 locationLayer.setOpenCompass(true);
-                locationLayer.setCompassIndicatorCircleRotateDegree(60);
-                locationLayer.setCompassIndicatorArrowRotateDegree(-30);
                 mapView.addLayer(locationLayer);
                 mapView.refresh();
 
@@ -127,7 +140,18 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
             }
 
         });
+        //mapView.loadMap(AssetsHelper.getContent(this, "sample2.svg"));
         mapView.loadMap(bitmap);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        //assert sensorManager != null;
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
+
     }
 
     @Override
@@ -161,6 +185,52 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
     }
 
     @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (mapView.isMapLoadFinish()) {
+            float mapDegree = 0; // the rotate between reality map to northern
+            float degree = 0f;
+            float alpha = 0.97f;
+
+            synchronized (this) {
+                if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                    mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
+                    mGravity[1] = alpha * mGravity[1] + (1 - alpha) * event.values[1];
+                    mGravity[2] = alpha * mGravity[2] + (1 - alpha) * event.values[2];
+                }
+                if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                    mGeomagnetic[0] = alpha * mGeomagnetic[0] + (1 - alpha) * event.values[0];
+                    mGeomagnetic[1] = alpha * mGeomagnetic[1] + (1 - alpha) * event.values[1];
+                    mGeomagnetic[2] = alpha * mGeomagnetic[2] + (1 - alpha) * event.values[2];
+                }
+
+                if (mGravity != null && mGeomagnetic != null) {
+                    float R[] = new float[9];
+                    float I[] = new float[9];
+
+                    boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+                    if (success) {
+                        float orientation[] = new float[3];
+                        SensorManager.getOrientation(R, orientation);
+
+                        degree = (float) Math.toDegrees(orientation[0]);
+                        degree = (degree + 360) % 360;
+                    }
+                    //Log.d("suka", "onSensorChanged: " + String.valueOf(degree));
+                    locationLayer.setCompassIndicatorArrowRotateDegree(mapDegree + mapView
+                            .getCurrentRotateDegrees() + degree);
+                    mapView.refresh();
+                }
+
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
     public void onBind() {
 
     }
@@ -189,6 +259,8 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
         }
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
 
 
@@ -216,6 +288,7 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
             //Stop scan service
             mScanServiceManager.unbind();
             mScanServiceManager = null;
+            sensorManager.unregisterListener(this);
         }
     }
 
@@ -263,7 +336,6 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
                                 routeLayer.setRouteList(routeList);
                                 routeLayer.setNodeList(nodes);
                             }
-
                             mapView.refresh();
                         }
                     }
@@ -273,5 +345,22 @@ public class BeaconRouteActivity extends AppCompatActivity implements ScanServic
 
         //Connect to scan service
         mScanServiceManager.bind();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onRotateBegin() {
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onRotateEnd() {
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
 }
