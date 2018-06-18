@@ -46,7 +46,7 @@ public class RouteLayerTestActivity extends AppCompatActivity {
         markers = TestData.getMarks();
         MapUtils.init(nodes.size(), nodesContract.size());
 
-        mapView = (MapView) findViewById(R.id.mapview);
+        mapView = findViewById(R.id.mapview);
         Bitmap bitmap = null;
         try {
             bitmap = BitmapFactory.decodeStream(getAssets().open("map.png"));
@@ -63,15 +63,12 @@ public class RouteLayerTestActivity extends AppCompatActivity {
 
                 markLayer = new MarkerLayer(mapView, markers);
                 mapView.addLayer(markLayer);
-                markLayer.setOnMarkerClickListener(new MarkerLayer.OnMarkerClickListener() {
-                    @Override
-                    public void onMarkerClick(Marker marker) {
-                        List<Integer> routeList = MapUtils.getShortestDistanceBetweenTwoPoints
-                                (markers.get(markers.size() - 1), marker, nodes, nodesContract);
-                        routeLayer.setNodeList(nodes);
-                        routeLayer.setRouteList(routeList);
-                        mapView.refresh();
-                    }
+                markLayer.setOnMarkerClickListener(marker -> {
+                    List<Integer> routeList = MapUtils.getShortestDistanceBetweenTwoPoints
+                            (markers.get(markers.size() - 1), marker, nodes, nodesContract);
+                    routeLayer.setNodeList(nodes);
+                    routeLayer.setRouteList(routeList);
+                    mapView.refresh();
                 });
                 mapView.refresh();
             }

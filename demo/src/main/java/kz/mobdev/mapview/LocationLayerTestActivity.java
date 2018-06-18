@@ -67,8 +67,7 @@ public class LocationLayerTestActivity extends AppCompatActivity {
             public void onMapLoadSuccess() {
                 locationLayer = new LocationLayer(mapView, new PointF(400, 400));
                 locationLayer.setOpenCompass(true);
-                locationLayer.setCompassIndicatorCircleRotateDegree(60);
-                locationLayer.setCompassIndicatorArrowRotateDegree(-30);
+
                 mapView.addLayer(locationLayer);
 
                 mapView.refresh();
@@ -112,9 +111,6 @@ public class LocationLayerTestActivity extends AppCompatActivity {
     private float getDegree(TupleSensorEvent tuple) {
         SensorEvent accelerometerEvent = tuple.getFirst();
         SensorEvent magneticEvent = tuple.getSecond();
-
-        Log.d("LocationLayerTestActivity", accelerometerEvent.sensor.getName() + " " + Arrays.toString(accelerometerEvent.values));
-        Log.d("LocationLayerTestActivity", magneticEvent.sensor.getName() + " " + Arrays.toString(magneticEvent.values));
 
         final float[] degree = {0f};
         float alpha = 0.97f;

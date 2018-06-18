@@ -149,7 +149,9 @@ public final class DataForBeacons {
         marks.add(Marker.newBuilder().setPosition(582, 1035).build());
         marks.add(Marker.newBuilder().setPosition(726, 1035).build());
         marks.add(Marker.newBuilder().setPosition(740, 718).build());
-        marks.add(Marker.newBuilder().setPosition(596, 698).build());
+
+        marks.add(Marker.newBuilder().setPosition(582, 698).build());
+
         marks.add(Marker.newBuilder().setPosition(316, 658).build());
 
         marks.add(Marker.newBuilder().setPosition(141, 670).build());
